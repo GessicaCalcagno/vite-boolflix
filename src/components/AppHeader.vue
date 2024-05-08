@@ -13,7 +13,7 @@ export default {
 <template>
  <div>
     <input type="text" v-model="store.searchQuery" placeholder="Cerca">
-    <button>Cerca</button>
+    <button @click="$emit('search')">Invia</button>
   </div>
 </template>
 
