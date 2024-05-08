@@ -1,15 +1,23 @@
 <script>
+import { store } from "../store.js";
+export default {
+  data() {
+    return {
+      store,
+    };
+  },
+};
 
 </script>
 
 <template>
-<div>
-    Header
-</div>
+ <div>
+    <input type="text" v-model="store.searchQuery" placeholder="Cerca">
+    <button>Cerca</button>
+  </div>
 </template>
 
 <style scoped lang="scss">
-@use "../style/partials/variable" as *;
-@use "../style/partials/mixin" as *;
+
 
 </style>
