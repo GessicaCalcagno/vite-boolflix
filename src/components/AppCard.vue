@@ -5,7 +5,7 @@ export default {
     cardObj: Object,
   },
   data() {
-    return { store };
+    return { store, overlayOpen: false };
   },
   methods: {
     showFlag(curFlag) {
@@ -33,6 +33,9 @@ export default {
     getImageUrl(name) {
       return new URL(`../src/assets/${name}.png`, import.meta.url).href;
     },
+    toggleOverlay() {
+      this.overlayOpen = !this.overlayOpen;
+    },
   },
 };
 
@@ -45,54 +48,82 @@ export default {
 </script>
 
 <template>
-  <div class="card mb-3 flip-card-front">
+  <div class="card mb-4 flip-card-front" @click="toggleOverlay">
     <img
+      class="backImag"
       :src="`https://image.tmdb.org/t/p/w342/${cardObj.poster_path}`"
       alt=""
     />
-  </div>
-  <div class="card card-body">
-    <h3 class="text-center m-0" v-if="cardObj.title">
-      {{ cardObj.title }}
-    </h3>
-    <h3 class="text-center m-0" v-else>{{ cardObj.name }}</h3>
-    <h6 class="text-center">{{ cardObj.original_title }}</h6>
-    <!-- FLAG -->
-    <img
-      :src="showFlag(cardObj.original_language)"
-      alt=""
-      v-if="showFlag(cardObj.original_language) != 'No Flag'"
-    />
-    <p v-else>No Flag</p>
-    <p class="text-center m-0">{{ cardObj.original_language }}</p>
-    <!-- STARS -->
-    <!-- Trasforma il voto da 1 a 10 in un numero intero da 1 a 5 -->
-    <!-- Math.ceil(vote / 2) -->
-    <div>
+    <!-- Quando clicco cambia in display block -->
+    <div class="card-overlay" :class="{ open: overlayOpen }">
+      <h3 class="text-center m-0" v-if="cardObj.title">{{ cardObj.title }}</h3>
+      <h3 class="text-center m-0" v-else>{{ cardObj.name }}</h3>
+      <h6 class="text-center">{{ cardObj.original_title }}</h6>
+      <!-- FLAG -->
+      <img
+        :src="showFlag(cardObj.original_language)"
+        alt=""
+        v-if="showFlag(cardObj.original_language) != 'No Flag'"
+      />
+      <p v-else>No Flag</p>
+      <p class="text-center m-0">{{ cardObj.original_language }}</p>
+      <!-- STARS -->
       <i
         class="fa-star"
         v-for="star in 5"
         :class="{
           fas: star <= Math.ceil(cardObj.vote_average / 2),
-          far: star >= Math.ceil(cardObj.vote_average / 2),
+          far: star > Math.ceil(cardObj.vote_average / 2),
         }"
       ></i>
+      <p class="text-center">
+        Stelle: {{ Math.ceil(cardObj.vote_average / 2) }}
+      </p>
+      <p>{{ cardObj.overview }}</p>
     </div>
-    <p class="text-center">Stelle: {{ Math.ceil(cardObj.vote_average / 2) }}</p>
-    <p class="">{{ cardObj.overview }}</p>
   </div>
 </template>
 
 <style scoped lang="scss">
 .card {
-  img {
-    width: 100%;
-  }
+  border-radius: 0;
+  border-color: #7b7a7a;
 }
-.card-body {
+
+.backImag {
+  width: 100%;
+  height: 360px;
+  object-fit: cover;
+}
+
+.card-overlay {
   img {
     width: 15%;
     aspect-ratio: 1.5;
   }
+}
+
+.card-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  font-size: 0.8rem;
+  padding: 10px 15px 10px 15px;
+  display: none; /* La card-overlay è nascosta di default in Boostrap */
+  overflow-y: auto;
+}
+
+//Gold Stars
+.fa-star {
+  color: gold;
+}
+
+/* Quando clicco cambia in display block */
+.card-overlay.open {
+  display: block;
 }
 </style>

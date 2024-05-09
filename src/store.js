@@ -8,5 +8,4 @@ export const store = reactive({
 });
 
 // prefissoimmagine: "https://image.tmdb.org/t/p/w342"
-
 // poster_path:"/b4wZkB4FNUi7SK46Tw9kxT5oW8M.jpg"
