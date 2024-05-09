@@ -7,6 +7,6 @@ export const store = reactive({
   api_key: "c6a9e7da50b2ce00f3b180bc2d8d44e9",
 });
 
-// prefisso immagine: "https://image.tmdb.org/t/p/w342"
+// prefissoimmagine: "https://image.tmdb.org/t/p/w342"
 
 // poster_path:"/b4wZkB4FNUi7SK46Tw9kxT5oW8M.jpg"

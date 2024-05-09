@@ -45,28 +45,54 @@ export default {
 </script>
 
 <template>
-  <div class="card mb-3">
-    <div class="card-body">
-      <h3 class="text-center m-0" v-if="cardObj.title">{{ cardObj.title }}</h3>
-      <h3 class="text-center m-0" v-else>{{ cardObj.name }}</h3>
-      <h6 class="text-center">{{ cardObj.original_title }}</h6>
-      <!-- FLAG -->
-      <img
-        :src="showFlag(cardObj.original_language)"
-        alt=""
-        v-if="showFlag(cardObj.original_language) != 'No Flag'"
-      />
-      <p v-else>No Flag</p>
-      <p class="text-center m-0">{{ cardObj.original_language }}</p>
-      <p class="text-center">{{ cardObj.vote_average }}</p>
-      <p class="">{{ cardObj.overview }}</p>
+  <div class="card mb-3 flip-card-front">
+    <img
+      :src="`https://image.tmdb.org/t/p/w342/${cardObj.poster_path}`"
+      alt=""
+    />
+  </div>
+  <div class="card card-body">
+    <h3 class="text-center m-0" v-if="cardObj.title">
+      {{ cardObj.title }}
+    </h3>
+    <h3 class="text-center m-0" v-else>{{ cardObj.name }}</h3>
+    <h6 class="text-center">{{ cardObj.original_title }}</h6>
+    <!-- FLAG -->
+    <img
+      :src="showFlag(cardObj.original_language)"
+      alt=""
+      v-if="showFlag(cardObj.original_language) != 'No Flag'"
+    />
+    <p v-else>No Flag</p>
+    <p class="text-center m-0">{{ cardObj.original_language }}</p>
+    <!-- STARS -->
+    <!-- Trasforma il voto da 1 a 10 in un numero intero da 1 a 5 -->
+    <!-- Math.ceil(vote / 2) -->
+    <div>
+      <i
+        class="fa-star"
+        v-for="star in 5"
+        :class="{
+          fas: star <= Math.ceil(cardObj.vote_average / 2),
+          far: star >= Math.ceil(cardObj.vote_average / 2),
+        }"
+      ></i>
     </div>
+    <p class="text-center">Stelle: {{ Math.ceil(cardObj.vote_average / 2) }}</p>
+    <p class="">{{ cardObj.overview }}</p>
   </div>
 </template>
 
 <style scoped lang="scss">
-img {
-  width: 15%;
-  aspect-ratio: 1.5;
+.card {
+  img {
+    width: 100%;
+  }
+}
+.card-body {
+  img {
+    width: 15%;
+    aspect-ratio: 1.5;
+  }
 }
 </style>
