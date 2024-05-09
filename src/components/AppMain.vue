@@ -38,7 +38,9 @@ export default {
 @use "../style/partials/mixin" as *;
 
 main {
+  height: 100vh;
   background-color: black;
+  overflow-y: auto;
 }
 
 h2 {
