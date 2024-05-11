@@ -19,8 +19,8 @@ export default {
     <div class="container">
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
         <h2 class="p-3" style="width: 100%">FILM</h2>
-        <div class="col" v-for="card in store.arrayMovie">
-          <AppCard :cardObj="card" />
+        <div class="col" v-for="cardMovie in store.arrayMovie">
+          <AppCard :cardObj="cardMovie" />
         </div>
       </div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">

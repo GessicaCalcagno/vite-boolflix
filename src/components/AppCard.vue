@@ -56,6 +56,7 @@ export default {
     />
     <!-- Quando clicco cambia in display block -->
     <div class="card-overlay" :class="{ open: overlayOpen }">
+      <!-- Potrei anche usare l'operatore ternario: cardObj.title ? cardObj.title : cardObj.name -->
       <h3 class="text-center m-0" v-if="cardObj.title">{{ cardObj.title }}</h3>
       <h3 class="text-center m-0" v-else>{{ cardObj.name }}</h3>
       <h6 class="text-center">{{ cardObj.original_title }}</h6>

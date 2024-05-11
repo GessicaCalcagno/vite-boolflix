@@ -26,6 +26,7 @@ export default {
         <input
           type="text"
           v-model="store.searchQuery"
+          aria-label="Inizia la ricerca"
           placeholder="Cerca"
           class="form-control me-1"
         />

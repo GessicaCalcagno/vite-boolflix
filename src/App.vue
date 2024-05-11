@@ -12,10 +12,13 @@ export default {
   data() {
     return {
       store,
+      //Solo nel caso volessi usare un loader
+      isLoading: false,
     };
   },
   methods: {
     getSearchMovie() {
+      this.isLoading = true;
       axios
         .get("https://api.themoviedb.org/3/search/movie", {
           params: {
@@ -28,6 +31,12 @@ export default {
           (this.store.arrayMovie = resp.data.results),
             console.log(resp.data.results);
           console.log(resp.data.results[0].title);
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => {
+          this.isLoading = false;
         });
     },
 
